@@ -1,24 +1,35 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import CellComponent from '@/components/CellComponent';
 import { BoardProps } from '@/components/BoardComponent/interfaces';
 import { Cell } from '@/models/Cell';
 
-const BoardComponent: FC<BoardProps> = ({ board, setBoard }): JSX.Element => {
+const BoardComponent: FC<BoardProps> = ({
+  board,
+  setBoard,
+  swapPlayer,
+  currentPlayer
+}): JSX.Element => {
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
-  const clickCell = (cell: Cell) => {
-    if (
-      selectedCell &&
-      selectedCell !== cell &&
-      selectedCell.figure?.canMove(cell)
-    ) {
-      selectedCell.moveFigure(cell);
-      setSelectedCell(null);
-      updateBoard();
-    } else {
-      setSelectedCell(cell);
-    }
-  };
+  const clickCell = useCallback(
+    (cell: Cell) => () => {
+      if (
+        selectedCell &&
+        selectedCell !== cell &&
+        selectedCell.figure?.canMove(cell)
+      ) {
+        selectedCell.moveFigure(cell);
+        swapPlayer();
+        setSelectedCell(null);
+        updateBoard();
+      } else {
+        if (cell.figure?.color === currentPlayer?.color) {
+          setSelectedCell(cell);
+        }
+      }
+    },
+    [selectedCell, setSelectedCell, currentPlayer]
+  );
 
   useEffect(() => {
     highlightCells();
@@ -35,7 +46,7 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard }): JSX.Element => {
   };
 
   return (
-    <div className="w-[512px] h-[512px] flex flex-wrap">
+    <div className="w-[640px] h-[640px] flex flex-wrap">
       {board.cells.map((row, index) => (
         <Fragment key={index}>
           {row.map(cell => (

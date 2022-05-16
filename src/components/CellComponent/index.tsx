@@ -8,17 +8,19 @@ const CellComponent: FC<CellProps> = ({ cell, selected, onClick }) => {
   return (
     <div
       className={clsx(
-        'w-16 h-16 flex justify-center items-center',
-        cell.color,
-        selected && 'bg-[#a52a2a]',
-        cell.figure && cell.available && 'bg-[#22c022]'
+        'w-20 h-20 flex justify-center items-center',
+        selected
+          ? 'bg-[#a52a2a]'
+          : cell.figure && cell.available
+          ? 'bg-[#22c022]'
+          : cell.color
       )}
-      onClick={() => onClick(cell)}
+      onClick={onClick(cell)}
     >
       {!cell.figure && cell.available && (
         <div className="w-3 h-3 rounded-full bg-[#22c022]" />
       )}
-      {cell.figure?.icon && <Figure className="w-12 h-12 relative" />}
+      {cell.figure?.icon && <Figure className="w-16 h-16 relative" />}
     </div>
   );
 };

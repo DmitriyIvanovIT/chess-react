@@ -6,9 +6,12 @@ import { King } from '@/models/Figures/Figure/King';
 import { Bishop } from '@/models/Figures/Figure/Bishop';
 import { Knight } from '@/models/Figures/Figure/Knight';
 import { Rook } from '@/models/Figures/Figure/Rook';
+import { Figure } from '@/models/Figures/Figure';
 
 export class Board {
   cells: Cell[][] = [];
+  lostBlackFigures: Figure[] = [];
+  lostWhiteFigures: Figure[] = [];
 
   public initCells() {
     for (let i = 0; i < 8; i++) {
@@ -27,6 +30,8 @@ export class Board {
   public getCopyBoard(): Board {
     const newBoard = new Board();
     newBoard.cells = this.cells;
+    newBoard.lostWhiteFigures = this.lostWhiteFigures;
+    newBoard.lostBlackFigures = this.lostBlackFigures;
     return newBoard;
   }
 
@@ -62,10 +67,10 @@ export class Board {
   }
 
   private addKnights() {
-    new Knight(ColorsFigure.WHITE, this.getCell(0, 7));
-    new Knight(ColorsFigure.BLACK, this.getCell(0, 0));
-    new Knight(ColorsFigure.WHITE, this.getCell(7, 7));
-    new Knight(ColorsFigure.BLACK, this.getCell(7, 0));
+    new Knight(ColorsFigure.WHITE, this.getCell(1, 7));
+    new Knight(ColorsFigure.BLACK, this.getCell(1, 0));
+    new Knight(ColorsFigure.WHITE, this.getCell(6, 7));
+    new Knight(ColorsFigure.BLACK, this.getCell(6, 0));
   }
 
   private addBishops() {
@@ -76,10 +81,10 @@ export class Board {
   }
 
   private addRooks() {
-    new Rook(ColorsFigure.WHITE, this.getCell(1, 7));
-    new Rook(ColorsFigure.BLACK, this.getCell(1, 0));
-    new Rook(ColorsFigure.WHITE, this.getCell(6, 7));
-    new Rook(ColorsFigure.BLACK, this.getCell(6, 0));
+    new Rook(ColorsFigure.WHITE, this.getCell(0, 7));
+    new Rook(ColorsFigure.BLACK, this.getCell(0, 0));
+    new Rook(ColorsFigure.WHITE, this.getCell(7, 7));
+    new Rook(ColorsFigure.BLACK, this.getCell(7, 0));
   }
 
   public addFigures() {
