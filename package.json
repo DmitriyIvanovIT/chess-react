@@ -1,4 +1,5 @@
 {
+  "homepage": "https://dmitriyivanovit.github.io/chess-react",
   "name": "chess",
   "version": "1.0.0",
   "description": "Шахматы на React",
@@ -20,7 +21,7 @@
     "autoprefixer": "10.4.4",
     "babel-loader": "8.2.3",
     "clean-webpack-plugin": "4.0.0",
-    "clsx": "^1.1.1",
+    "clsx": "1.1.1",
     "copy-webpack-plugin": "10.2.0",
     "cross-env": "7.0.3",
     "css-loader": "6.5.1",
@@ -28,6 +29,7 @@
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-webpack-plugin": "3.1.1",
+    "gh-pages": "4.0.0",
     "html-webpack-plugin": "5.5.0",
     "lodash": "4.17.21",
     "mini-css-extract-plugin": "2.4.5",
@@ -57,7 +59,9 @@
     "stylelint:lint": "stylelint './src/**/*.scss' -q --config stylelint.config.js",
     "stylelint:fix": "stylelint --fix './src/**/*.scss' -q --config stylelint.config.js",
     "lint": "yarn stylelint:lint && yarn eslint:lint",
-    "cs:fix": "yarn stylelint:fix && yarn eslint:fix"
+    "cs:fix": "yarn stylelint:fix && yarn eslint:fix",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "react": "18.0.0",
